@@ -1,0 +1,25 @@
+{
+  "name": "nodejs-tasks",
+  "version": "1.0.0",
+  "description": "1-task",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Oliendone/nodejs-tasks.git"
+  },
+  "author": "Nikita Lavrenyuk <Zungarcheg@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Oliendone/nodejs-tasks/issues"
+  },
+  "homepage": "https://github.com/Oliendone/nodejs-tasks#readme",
+  "dependencies": {
+    "nodemon": "^2.0.6",
+    "yargs": "^16.1.1"
+  }
+}
