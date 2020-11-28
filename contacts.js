@@ -1,16 +1,14 @@
 const fs = require("fs").promises;
 const path = require("path");
+const { parsed } = require("yargs");
 
 const contactsPath = path.join(__dirname, "db/contacts.json");
 
 const listContacts = async () => {
-  await fs.readFile(contactsPath, "utf-8", (err, data) => {
-    if (err) throw err;
+  const data = await fs.readFile(contactsPath, "utf-8");
+  const parsedData = JSON.parse(data);
 
-    const parsedData = JSON.parse(data);
-
-    return parsedData;
-  });
+  console.log(parsedData);
 };
 
 const getContactById = async (contactId) => {
@@ -44,16 +42,22 @@ const addContact = async (name, email, phone) => {
 
   const parsedData = JSON.parse(response);
 
-  const id = parsedData.length + 1;
+  let newId;
 
-  const contact = {
-    id: id,
+  parsedData.forEach((data, index) => {
+    if (index === parsedData.length - 1) {
+      newId = data.id + 1;
+    }
+  });
+
+  const newContact = {
+    id: newId,
     name: name,
     email: email,
     phone: phone,
   };
 
-  parsedData.push(contact);
+  parsedData.push(newContact);
 
   await fs.writeFile(contactsPath, JSON.stringify(parsedData), (err) => {
     if (err) throw err;
@@ -63,7 +67,5 @@ const addContact = async (name, email, phone) => {
 
   console.log(JSON.parse(updatedContacts));
 };
-
-console.log(listContacts());
 
 module.exports = { listContacts, getContactById, removeContact, addContact };
