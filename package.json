@@ -4,6 +4,7 @@
   "description": "all-tasks",
   "main": "index.js",
   "dependencies": {
+    "express": "^4.17.1",
     "nodemon": "^2.0.6",
     "yargs": "^16.1.1"
   },
