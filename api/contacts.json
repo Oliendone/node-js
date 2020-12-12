@@ -1,0 +1,20 @@
+[
+  {
+    "id": "1",
+    "name": "Joy",
+    "email": "power.ranger@mail.com",
+    "phone": "432-33-22"
+  },
+  {
+    "id": "2",
+    "name": "Ross",
+    "email": "paleontologist@mail.com",
+    "phone": "655-43-88"
+  },
+  {
+    "id": "3",
+    "name": "Rachell",
+    "email": "beauty.girl222@mail.com",
+    "phone": "883-25-66"
+  }
+]
