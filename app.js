@@ -1,19 +1,48 @@
 const express = require("express");
 const logger = require("morgan");
 const cors = require("cors");
-const router = require("./api/index");
 require("dotenv").config();
 
-const app = express();
+const contactsRouter = require("./api/contacts.routers");
 
-app.use(express.json());
+module.exports = class ContactsServer {
+  constructor() {
+    this.server = null;
+  }
 
-app.use(logger("dev"));
+  start() {
+    this.initServer();
+    this.initMiddleware();
+    this.initRoutes();
+    this.handlingErrors();
+    this.startListening();
+  }
 
-app.use(cors());
+  initServer() {
+    this.server = express();
+  }
 
-app.use("/api/contacts", router);
+  initMiddleware() {
+    this.server.use(express.json());
+    this.server.use(logger("dev"));
+    this.server.use(cors({ origin: "http://localhost:3000" }));
+  }
 
-app.listen(process.env.PORT, () => {
-  console.log("Server started listening on port 3000");
-});
+  initRoutes() {
+    this.server.use("/api/contacts", contactsRouter);
+  }
+
+  handlingErrors() {
+    this.server.use((_, res, __) => {
+      res.status(404).json({
+        message: "Not found",
+      });
+    });
+  }
+
+  startListening() {
+    this.server.listen(3000, () => {
+      console.log("Server started listening on port 3000");
+    });
+  }
+};
