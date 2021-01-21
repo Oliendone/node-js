@@ -2,6 +2,7 @@ const express = require("express");
 const logger = require("morgan");
 const cors = require("cors");
 require("dotenv").config();
+const db = require("./db/index");
 
 const contactsRouter = require("./api/contacts.routers");
 
@@ -10,11 +11,12 @@ module.exports = class ContactsServer {
     this.server = null;
   }
 
-  start() {
+  async start() {
     this.initServer();
     this.initMiddleware();
     this.initRoutes();
     this.handlingErrors();
+    await this.initDatabase();
     this.startListening();
   }
 
@@ -30,6 +32,10 @@ module.exports = class ContactsServer {
 
   initRoutes() {
     this.server.use("/api/contacts", contactsRouter);
+  }
+
+  async initDatabase() {
+    await db;
   }
 
   handlingErrors() {
